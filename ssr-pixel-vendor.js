@@ -1,45 +1,44 @@
-function hasSSRCookie() {
-  return document.cookie.indexOf('SSR_visited=true') !== -1;
+const TIMEOUT_DURATION = 30000; // 30 seconds
+const SSR_ID_PARAM = 'ssr_id';
+const ENDPOINT_VENDOR_CTA = 'vendor-cta';
+const ENDPOINT_VENDOR_EMAIL = 'vendor-email';
+const ENDPOINT_VENDOR_CONVERSION = 'vendor-conversion';
+
+function sendEvent(endpoint, payload) {
+    fetch(`https://select-software-reviews.bubbleapps.io/api/1.1/wf/${endpoint}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+    .catch(error => {
+        console.error(`Error sending event to ${endpoint}: ${error}`);
+    });
 }
 
-function hasSSRQueryParam() {
-  return window.location.search.indexOf('SSR_visited=true') !== -1;
+function hasSsrId() {
+    return window.location.search.includes(SSR_ID_PARAM);
 }
 
-function isUserOnPageForEnoughTime() {
-  var timeThreshold = 30000; // 30 seconds
-  var currentTime = new Date().getTime();
-  var pageLoadTime = window.performance.timing.domContentLoadedEventEnd;
-  return (currentTime - pageLoadTime) >= timeThreshold;
-}
+setTimeout(function () {
+    if (hasSsrId()) {
+        const ssrId = new URLSearchParams(window.location.search).get(SSR_ID_PARAM);
 
-function isUserAgentValid() {
-  var userAgent = navigator.userAgent.toLowerCase();
+        document.addEventListener('click', function (event) {
+            sendEvent(ENDPOINT_VENDOR_CTA, { click_id: ssrId });
+        });
 
-  return userAgent.indexOf('bot') === -1;
-}
+        document.addEventListener('input', function (event) {
+            if (event.target.matches('input[type="email"]')) {
+                sendEvent(ENDPOINT_VENDOR_EMAIL, { click_id: ssrId });
+            }
+        });
 
-function sendDataToServer() {
-  document.addEventListener('click', function (event) {
-    if ((hasSSRCookie() || hasSSRQueryParam()) && isUserOnPageForEnoughTime() && isUserAgentValid()) {
-      var domain = window.location.hostname;
-      var clickedCTA = '';
-      var source = '';
-
-      var xhr = new XMLHttpRequest();
-      var url = 'https://seuservidor.com/rastreamento';
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
-      var data = {
-        domain: domain,
-        clickedCTA: clickedCTA,
-        source: source,
-      };
-
-      xhr.send(JSON.stringify(data));
+        document.addEventListener('submit', function (event) {
+            if (event.target.matches('form')) {
+                sendEvent(ENDPOINT_VENDOR_CONVERSION, { click_id: ssrId });
+            }
+        });
     }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', sendDataToServer);
+}, TIMEOUT_DURATION);
