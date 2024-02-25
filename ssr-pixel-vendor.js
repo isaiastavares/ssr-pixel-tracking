@@ -12,6 +12,13 @@ function sendEvent(endpoint, payload) {
         },
         body: JSON.stringify(payload),
     })
+    .then(response => {
+        if (!response.ok) {
+            console.error(`Erro ao enviar evento para ${endpoint}: ${response.status}`);
+        } else {
+            console.log(`Evento enviado com sucesso para ${endpoint}`);
+        }
+    })
     .catch(error => {
         console.error(`Error sending event to ${endpoint}: ${error}`);
     });
