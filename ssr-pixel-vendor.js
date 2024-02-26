@@ -33,7 +33,9 @@ setTimeout(function () {
         const ssrId = new URLSearchParams(window.location.search).get(SSR_ID_PARAM);
 
         document.addEventListener('click', function (event) {
-            sendEvent(ENDPOINT_VENDOR_CTA, { click_id: ssrId });
+            if (event.target.tagName === 'BUTTON') {
+                sendEvent(ENDPOINT_VENDOR_CTA, { click_id: ssrId });
+            }
         });
 
         document.addEventListener('input', function (event) {
