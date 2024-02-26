@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste do Script</title>
+</head>
+<body>
+
+<!-- Substitua o valor do href com o valor real do ssr_id que deseja testar -->
+<a href="?ssr_id=123456" class="cta-class">Botão CTA</a>
+
+<!-- Substitua o valor do action com o valor real do ssr_id que deseja testar -->
+<form action="?ssr_id=123456" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <input type="submit" value="Enviar">
+</form>
+
+<!-- Importe o script assíncrono e deferido -->
+<script async defer src="https://isaiastavares.github.io/ssr-pixel-tracking/ssr-pixel-vendor.js"></script>
+
+</body>
+</html>
