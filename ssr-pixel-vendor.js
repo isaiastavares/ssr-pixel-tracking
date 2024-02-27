@@ -1,7 +1,7 @@
 const SSR_ID_PARAM = 'ssr_id';
 const ENDPOINT_VENDOR_CTA = 'vendor-cta';
 const ENDPOINT_VENDOR_EMAIL = 'vendor-email';
-const ENDPOINT_VENDOR_CONVERSION = 'vendor-conversion';
+const ENDPOINT_VENDOR_CONVERSION = 'vendor-form';
 
 function sendEvent(endpoint, payload) {
     fetch(`https://select-software-reviews.bubbleapps.io/api/1.1/wf/${endpoint}`, {
