@@ -1,5 +1,5 @@
 const SSR_ID_PARAM = 'ssr_id';
-const ENDPOINT_VENDOR_CTA = 'vendor-cta';
+const ENDPOINT_VENDOR_CTA = 'vendor-cta2';
 const ENDPOINT_VENDOR_EMAIL = 'vendor-email';
 const ENDPOINT_VENDOR_CONVERSION = 'vendor-form';
 
