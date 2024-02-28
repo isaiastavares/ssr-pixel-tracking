@@ -4,7 +4,7 @@ const ENDPOINT_VENDOR_EMAIL = 'vendor-email';
 const ENDPOINT_VENDOR_CONVERSION = 'vendor-form';
 
 function sendEvent(endpoint, payload) {
-    fetch(`https://select-software-reviews.bubbleapps.io/version-test/api/1.1/wf/${endpoint}`, {
+    fetch(`https://select-software-reviews.bubbleapps.io/api/1.1/wf/${endpoint}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
