@@ -14,6 +14,6 @@ window.onload = function() {
       const ssrId = getSsrId();
       var imgSrc = document.getElementById(SSR_PIXEL_ID).src;
       imgSrc = imgSrc.replace('{{ssr_id}}', ssrId);
-      //document.getElementById(SSR_PIXEL_ID).src = imgSrc;
+      document.getElementById(SSR_PIXEL_ID).src = imgSrc;
     }
 };
