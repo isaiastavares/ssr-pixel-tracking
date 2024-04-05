@@ -31,7 +31,9 @@ if (hasSsrId()) {
 
     document.addEventListener('input', function (event) {
         if (event.target.matches('input[type="email"]')) {
-            sendEvent(ENDPOINT_VENDOR_EMAIL, { ssr_id: ssrId });
+            var email = event.target.value;
+            
+            sendEvent(ENDPOINT_VENDOR_EMAIL, { ssr_id: ssrId, email: email });
         }
     });
 
