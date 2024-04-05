@@ -29,13 +29,21 @@ if (hasSsrId()) {
         }
     });
 
-    document.addEventListener('input', function (event) {
+    /*document.addEventListener('input', function (event) {
         if (event.target.matches('input[type="email"]')) {
             var email = event.target.value;
             
             sendEvent(ENDPOINT_VENDOR_EMAIL, { ssr_id: ssrId, email: email });
         }
-    });
+    });*/
+
+    document.addEventListener('blur', function (event) {
+        if (event.target.matches('input[type="email"]')) {
+            var email = event.target.value;
+    
+            sendEvent(ENDPOINT_VENDOR_EMAIL, { ssr_id: ssrId, email: email });
+        }
+    }, true);
 
     document.addEventListener('submit', function (event) {
         if (event.target.matches('form')) {
