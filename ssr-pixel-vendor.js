@@ -20,6 +20,10 @@ function hasSsrId() {
     return window.location.search.includes(SSR_ID_PARAM);
 }
 
+function isEmailInput(element) {
+     return element.matches('input[type="email"]') || element.matches('input[id="email"]') || element.matches('input[name="email"]');
+}
+
 if (hasSsrId()) {
     const ssrId = new URLSearchParams(window.location.search).get(SSR_ID_PARAM);
 
@@ -30,7 +34,7 @@ if (hasSsrId()) {
     });
 
     document.addEventListener('blur', function (event) {
-        if (event.target.matches('input[type="email"]')) {
+        if (isEmailInput(event.target)) {
             var email = event.target.value;
     
             sendEvent(ENDPOINT_VENDOR_EMAIL, { ssr_id: ssrId, email: email });
